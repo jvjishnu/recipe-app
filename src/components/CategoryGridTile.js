@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Platform, TouchableNativeFeed
 
 const isAndroid = Platform.OS === 'android' ? true : false
 export const CategoryGridTile = ({title, onSelect, colour}) => {
-    let TouchableComp = (isAndroid && Platform.Version >= 21) ? TouchableNativeFeedback : TouchableOpacity
+    const TouchableComp = (isAndroid && Platform.Version >= 21) ? TouchableNativeFeedback : TouchableOpacity
     return (
         <View style={styles.gridItem}>
         <TouchableComp 
