@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
         height: 150,
         margin: 10,
         borderRadius: 10,
-        overflow: 'hidden'
+        overflow: (isAndroid && Platform.Version >= 21) ? 'hidden' : 'visible',
+        elevation: 5
     },
     container: {
         flex: 1,
@@ -35,14 +36,13 @@ const styles = StyleSheet.create({
             height: 2
         },
         shadowRadius: 10,
-        elevation: 3,
         padding: 15,
         justifyContent: 'flex-end',
         alignItems: 'flex-end'
     },
     title: {
         fontFamily: 'open-sans-bold',
-        fontSize: 22,
+        fontSize: 20,
         textAlign: 'right'
     }
 });

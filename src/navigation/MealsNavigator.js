@@ -1,8 +1,12 @@
 import { Platform } from 'react-native';
+import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createAppContainer } from 'react-navigation';
-import { CategoriesScreen, CategoryMealsScreen, MealDetailScreen } from '../screens';
+import { CategoriesScreen, CategoryMealsScreen, MealDetailScreen, FavouritesScreen } from '../screens';
 import { Colours } from '../constants/Colours';
+import { Ionicons } from '@expo/vector-icons'
 
 const isAndroid = Platform.OS === 'android' ? true : false
 const navOptions = {
@@ -26,4 +30,45 @@ const MealNavigator = createStackNavigator({
     defaultNavigationOptions: navOptions
 });
 
-export const MealsNavigator = createAppContainer(MealNavigator)
+const FavNavigator = createStackNavigator({
+    Favourites: FavouritesScreen,
+    MealDetail: MealDetailScreen
+}, {
+    defaultNavigationOptions: navOptions
+})
+
+const tabScreenConfig = {
+    Meals: {
+        screen: MealNavigator,
+        navigationOptions: {
+            tabBarIcon: (tabInfo) => {
+                return <Ionicons name={'ios-restaurant'} size={25} color={tabInfo.tintColor}/>
+            },
+            tabBarColor: Colours.PRIMARY
+        }
+    },
+    Favourites: {
+        screen: FavNavigator,
+        navigationOptions: {
+            tabBarLabel: 'Favourites', //not necessary here, can be overridden if required
+            tabBarIcon: (tabInfo) => {
+                return <Ionicons name={'ios-star'} size={25} color={tabInfo.tintColor}/>
+            },
+            tabBarColor: Colours.ACCENT
+        }
+    }
+}
+
+const MealFavTabNavigator = isAndroid ? 
+    createMaterialBottomTabNavigator(tabScreenConfig, {
+        activeColor: 'white',
+        shifting: true
+    }) : 
+    createBottomTabNavigator(tabScreenConfig, 
+    {
+        tabBarOptions: {
+            activeTintColor: Colours.ACCENT
+        }
+    });
+
+export const MealsNavigator = createAppContainer(MealFavTabNavigator)
