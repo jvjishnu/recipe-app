@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MEALS } from '../data/dummy-data';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { CustomHeaderButton } from '../components/HeaderButton';
-import { Colours } from '../constants/Colours';
 
 export const MealDetailScreen = ({navigation}) => {
     const mealId = navigation.getParam('mealId');

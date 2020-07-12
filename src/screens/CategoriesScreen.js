@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, FlatList, Platform } from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
 import { CategoryGridTile } from '../components/CategoryGridTile';
-import { color } from 'react-native-reanimated';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { CustomHeaderButton } from '../components/HeaderButton';
 
+const isAndroid = Platform.OS === 'android' ? true : false
 export const CategoriesScreen = ({navigation}) => {
     const renderItem = (itemData) => {
         return( 
@@ -24,4 +26,14 @@ export const CategoriesScreen = ({navigation}) => {
                 eyExtractor={(item, index) => item.id} numColumns={2}/>     
         </View>
     );
+}
+
+CategoriesScreen.navigationOptions = (navData) => {
+    return {
+        title: 'Meal Categories',
+        headerLeft: () => 
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item iconName={isAndroid ? 'md-menu' : 'ios-menu'} onPress={() => navData.navigation.toggleDrawer()}/>
+        </HeaderButtons>
+    }
 }
