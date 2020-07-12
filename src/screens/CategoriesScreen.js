@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Platform } from 're
 import { CATEGORIES } from '../data/dummy-data';
 import { Colours } from '../constants/Colours';
 
+const isAndroid = Platform.OS === 'android' ? true : false
 export const CategoriesScreen = ({navigation}) => {
-    const isAndroid = Platform.OS === 'android' ? true : false
     const renderItem = (itemData) => {
         return( 
             <TouchableOpacity style={styles.gridItem} onPress={() => navigation.navigate({routeName: 'CategoryMeals'})}>
