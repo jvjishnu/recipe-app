@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -19,6 +19,12 @@ const isAndroid = Platform.OS === 'android' ? true : false
 const navOptions = {
     headerStyle: {
         backgroundColor: isAndroid ? Colours.PRIMARY : ''
+    },
+    headerTitleStyle: {
+        fontFamily: 'open-sans-bold'
+    },
+    headerBackTitleStyle: {
+        fontFamily: 'open-sans'
     },
     headerTintColor: isAndroid ? 'white' : Colours.PRIMARY
 }
@@ -51,13 +57,14 @@ const tabScreenConfig = {
             tabBarIcon: (tabInfo) => {
                 return <Ionicons name={'ios-restaurant'} size={25} color={tabInfo.tintColor}/>
             },
-            tabBarColor: Colours.PRIMARY
+            tabBarColor: Colours.PRIMARY,
+            tabBarLabel: isAndroid ? <Text style={{fontFamily: 'open-sans'}}>Meals</Text> : 'Meals'
         }
     },
     Favourites: {
         screen: FavNavigator,
         navigationOptions: {
-            tabBarLabel: 'Favourites', //not necessary here, can be overridden if required
+            tabBarLabel: isAndroid ? <Text style={{fontFamily: 'open-sans'}}>Favourites</Text> : 'Favourites', //not necessary here, can be overridden if required
             tabBarIcon: (tabInfo) => {
                 return <Ionicons name={'ios-star'} size={25} color={tabInfo.tintColor}/>
             },
@@ -74,6 +81,9 @@ const MealFavTabNavigator = isAndroid ?
     createBottomTabNavigator(tabScreenConfig, 
     {
         tabBarOptions: {
+            labelStyle: {
+                fontFamily: 'open-sans'
+            },
             activeTintColor: Colours.ACCENT
         }
     });
